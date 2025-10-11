@@ -1,0 +1,31 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #b8b8b8;
+}
+
+.login-panel {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.logo-side {
+  background-color: #e2e2e2;
+  color: rgb(0, 0, 0);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.logo-side img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
