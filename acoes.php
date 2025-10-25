@@ -1,13 +1,54 @@
 <?php
-session_start();
+require 'config_sessao.php';
+
 require 'connection.php';
+
+function criar_mensagem_de_erro($mensagem, $pagina_redirecionamento)
+{
+
+    $_SESSION['mensagem'] = $mensagem;
+    header("Location: $pagina_redirecionamento");
+    exit;
+}
+
+if (isset($_POST['login'])) {
+    $senha_digitada = trim($_POST['senha'] ?? '');
+    $usuario_digitado = trim($_POST['usuario'] ?? '');
+
+    if (empty($usuario_digitado) || empty($senha_digitada)) {
+        criar_mensagem_de_erro('Por favor, preencha todos os campos.', 'login.php');
+    }
+
+
+    $usuario_digitado = mysqli_real_escape_string($conn, $usuario_digitado);
+    $query_usuario = "SELECT * FROM usuario WHERE usuario = '$usuario_digitado'";
+    $resultado_query = mysqli_query($conn, $query_usuario);
+    $usuario = mysqli_fetch_assoc($resultado_query);
+
+    if (!$usuario) {
+        criar_mensagem_de_erro('Usuário ou senha inválidos.', 'login.php');
+    }
+
+    $hash_do_banco = $usuario['senha'];
+
+    if (!password_verify($senha_digitada, $hash_do_banco)) {
+        criar_mensagem_de_erro('Usuário ou senha inválidos.', 'login.php');
+    }
+
+    $_SESSION['logado'] = true;
+    $_SESSION['id_usuario'] = $usuario['id_usuario'];
+    $_SESSION['usuario'] = $usuario['usuario'];
+
+    header(('Location: index.php'));
+    exit;
+}
 
 if (isset($_POST['create_produto'])) {
     $nome = mysqli_real_escape_string($conn, trim($_POST['nome']));
     $descricao = mysqli_real_escape_string($conn, trim($_POST['descricao']));
     $quantidade_estoque = mysqli_real_escape_string($conn, trim($_POST['quantidade_estoque']));
     $preco = mysqli_real_escape_string($conn, trim($_POST['preco_unitario']));
-    $ativo = mysqli_real_escape_string($conn, trim($_POST['ativo']));
+    // $ativo = mysqli_real_escape_string($conn, trim($_POST['ativo']));
     $id_categoria = mysqli_real_escape_string($conn, trim($_POST['id_categoria']));
     $id_fornecedor = mysqli_real_escape_string($conn, trim($_POST['id_fornecedor']));
 
@@ -44,6 +85,15 @@ if (isset($_POST['create_produto'])) {
         }
     }
 
+    $ativo  = 0;
+    $quantidade = (int) $quantidade_estoque;
+
+    if ($quantidade > 0) {
+        $ativo = 1;
+    }
+
+
+
     $query = "INSERT INTO produto (nome, descricao, quantidade_estoque, preco_unitario, url_foto, ativo, id_categoria, id_fornecedor) 
               VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -67,4 +117,20 @@ if (isset($_POST['create_produto'])) {
     mysqli_stmt_close($stmt);
     header('Location: index.php');
     exit;
+}
+
+if (isset($_POST['delete_produto'])) {
+    require 'verificacao_seguranca_login.php';
+    $produto_id = mysqli_real_escape_string($conn, $_POST['delete_produto']);
+    $query_delete = "DELETE FROM produto WHERE id_produto = '$produto_id'";
+    mysqli_query($conn, $query_delete);
+
+    if (mysqli_affected_rows($conn) > 0) {
+        $_SESSION['mensagem'] = 'Produto deletado com sucesso!';
+        header('Location: index.php');
+    } else {
+        $_SESSION['mensagem'] = 'Produto não foi deletado!';
+        header('Location: index.php');
+        exit;
+    }
 }

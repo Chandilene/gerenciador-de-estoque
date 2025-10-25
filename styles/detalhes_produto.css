@@ -1,0 +1,19 @@
+.card-estoque {
+  background-color: #e0f7fa;
+  border-left: 5px solid #00bcd4;
+}
+
+.valor-total-estoque {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.info-value {
+  font-weight: 500;
+}
