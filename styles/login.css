@@ -3,18 +3,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #b8b8b8;
+  background-image: url(../assets/background/fundo5.jpg);
+  background-repeat: no-repeat;
+  background-size:cover;
 }
 
 .login-panel {
-  background-color: #fff;
+  background-color: #ffffff62;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
 }
 
 .logo-side {
-  background-color: #e2e2e2;
+  background-color:  #ffffff62;
   color: rgb(0, 0, 0);
   padding: 30px;
   display: flex;
@@ -22,6 +24,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  display: none;
 }
 
 .logo-side img {

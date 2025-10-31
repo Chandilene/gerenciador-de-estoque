@@ -2,7 +2,7 @@
 
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-md">
-
+        <!-- rgb(67 112 157) -->
             <a class="navbar-brand" href="index.php">
                 <img src="assets/logo_dourado.png"
                     alt="ALPHA Suplementos Logo"
@@ -15,7 +15,7 @@
                 <a href="logout.php"
                     class="btn btn-outline-light btn-sm ms-auto"
                     title="Sair do Sistema">
-                    <span class="bi bi-box-arrow-left text-danger"></span>&nbsp;
+                    <span class="bi bi-box-arrow-left "></span>&nbsp;
                     Sair
                 </a>
 

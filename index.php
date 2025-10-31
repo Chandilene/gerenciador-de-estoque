@@ -15,25 +15,25 @@ require "connection.php"
     <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="styles/index.css">
 </head>
 
 <body>
     <?php include('navbar.php'); ?>
-    <main class='container mt-4'>
+    <main class='container mt-4 ' >
         <?php include('mensagem.php'); ?>
         <div class='row'>
             <div class='col-md-12'>
-                <div class='card'>
+                <div class='card '>
                     <div class='card-header'>
                         <h4>Listas de Produtos
-                            <a href='produto-create.php' class='btn btn-primary float-end'><span class="bi bi-plus-circle"></span>&nbsp; Adicionar Produto</a>
+                            <a href='produto-create.php' class='btn btn-primary float-end'><span class="bi bi-plus-circle"></span>&nbsp; Adicionar</a>
                         </h4>
                     </div>
                     <div class='card-body'>
                         <table class='table table-bordered table-striped'>
                             <thead>
-                                <tr>
+                                <tr class='linha'>
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th>Quantidade</th>
@@ -50,7 +50,7 @@ require "connection.php"
                                     foreach ($lista_produtos as $produto) {
 
                                 ?>
-                                        <tr>
+                                        <tr class='linha'>
                                             <td><?= $produto['id_produto'] ?></td>
                                             <td><?= $produto['nome'] ?></td>
                                             <td><?= $produto['quantidade_estoque'] ?></td>
@@ -71,7 +71,7 @@ require "connection.php"
                                             </td>
                                             <td>
                                                 <a href="detalhes_produto.php?id=<?= $produto['id_produto'] ?>" class='btn btn-secondary btn-sm'> <span class="bi bi-eye"></span>&nbsp; Visualizar</a>
-                                                <a href="detalhes_produto.php?id=<?= $produto['id_produto'] ?>" class='btn btn-success btn-sm'> <span class="bi bi-pencil"></span>&nbsp; Editar</a>
+                                                <a href="editar.php?id=<?= $produto['id_produto'] ?>" class='btn btn-success btn-sm'> <span class="bi bi-pencil"></span>&nbsp; Editar</a>
 
 
                                                 <button

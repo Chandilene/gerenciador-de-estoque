@@ -132,9 +132,9 @@ $fornecedor_nome = $produto['nome_fornecedor'] ?? 'N/A';
                 <section class="card card-estoque shadow-lg p-3">
 
                     <div class="card-body">
-                        <h4 class="card-title text-info mb-3">Informações de Estoque</h4>
+                        <h3 class="card-title text-info mb-3">Informações de Estoque</h3>
 
-                        <div class="row align-items-center">
+                        
                             <div class="col-md-6 mb-3 mb-md-0 border-end">
                                 <p class="mb-1 info-label">Preço Unitário:</p>
                                 <p class="h4 text-dark"><?= $preco_formatado ?></p>
@@ -149,16 +149,15 @@ $fornecedor_nome = $produto['nome_fornecedor'] ?? 'N/A';
                                 </p>
                                 <div class="valor-total-estoque"><?= $total_estoque_formatado ?></div>
                             </div>
-                        </div>
                     </div>
                 </section>
 
 
 
-                <div class="mt-4">
+                <section class="mt-4">
                     <a href="#" class="btn btn-primary me-2">Editar Produto</a>
                     <a href="index.php" class="btn btn-secondary">Voltar</a>
-                </div>
+                </section>
             </section>
         </div>
     </main>
