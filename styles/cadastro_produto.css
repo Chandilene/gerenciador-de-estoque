@@ -27,11 +27,10 @@ figure.image-preview-container {
 .form-control,
 .form-select,
 .btn {
-  border-radius: 8px; /* Cantos arredondados mais suaves */
+  border-radius: 8px;
 }
 
 .btn-primary {
-  /* Sombra para dar um efeito de "botão real" */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.274);
   font-weight: bold;
   transition: background-color 0.3s, box-shadow 0.3s;
@@ -53,11 +52,10 @@ figure.image-preview-container {
 }
 
 .image-preview-container {
-  /* Sombra para o box de pré-visualização */
   box-shadow: inset 0 2px 4px rgba(163, 14, 14, 0.05);
   border-radius: 8px;
-  min-height: 200px; /* Garante que tenha uma altura mínima */
-  background-color: #f8f9fa; /* Um fundo levemente cinza */
+  min-height: 200px;
+  background-color: #f8f9fa;
 }
 
 fieldset:nth-last-child(3) {
