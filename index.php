@@ -26,7 +26,7 @@ require "connection.php"
             <div class='col-md-12'>
                 <div class='card '>
                     <div class='card-header'>
-                        <h4>Listas de Produtos
+                        <h4>Lista de Produtos
                             <a href='produto-create.php' class='btn btn-primary float-end'><span class="bi bi-plus-circle"></span>&nbsp; Adicionar</a>
                         </h4>
                     </div>

@@ -1,14 +1,5 @@
-body {
-  background: #2a7b9b;
-  background: linear-gradient(
-    90deg,
-    rgba(42, 123, 155, 1) 0%,
-    rgba(87, 199, 133, 1) 50%,
-    rgba(237, 221, 83, 1) 100%
-  );
-}
 .card {
-  box-shadow: 0 10px 20px rgba(49, 93, 235, 0.185);
+  box-shadow: 0 10px 30px #005085;
   text-align: center;
 }
 .card-header h4 {
@@ -19,15 +10,18 @@ body {
   border: #057ccd;
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) > td {
-  color: #005085;
-  background-color: rgb(224, 239, 250);
+.table:hover {
+  border: #41b3ff;
 }
-.table-striped > tbody > tr:nth-of-type(even) > td {
-  color: #005085;
-  background-color: rgb(187, 207, 221);
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-color-type: #005085;
+  --bs-table-bg-type: rgba(137, 193, 233, 0.4);
 }
-.table-striped > tbody > tr:hover > td {
-  color: #292929 !important;
-  background-color: rgb(219, 219, 219) !important;
+.table-striped > tbody > tr:nth-of-type(even) > * {
+  --bs-table-color-type: #005085;
+  --bs-table-bg-type: rgba(6, 130, 219, 0.4);
+}
+.table-striped > tbody > tr:hover td {
+  --bs-table-color-type: #006ab1;
+  --bs-table-bg-type: rgba(6, 130, 219, 0.4);
 }

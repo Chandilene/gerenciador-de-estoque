@@ -13,9 +13,9 @@
             <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] === true): ?>
 
                 <a href="logout.php"
-                    class="btn btn-sm ms-auto bg-danger text-white"
+                    class="btn btn-danger btn-sm"
                     title="Sair do Sistema">
-                    <span class="bi bi-box-arrow-left text-white"></span>&nbsp;
+                    <span class="bi bi-box-arrow-left "></span>&nbsp;
                     Sair
                 </a>
 
