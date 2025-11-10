@@ -26,7 +26,20 @@ function previewImagem(event) {
 }
 
 // EDITAAAAAAAAAAAR -------------------------
+function previewImagem(event) {
+  const [file] = event.target.files;
+  const preview = document.getElementById('imagemPreview');
+  const placeholder = document.getElementById('textoPlaceholder');
 
+  if (file) {
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = 'block';
+      placeholder.style.display = 'none';
+  } else if (!preview.getAttribute('src') || preview.getAttribute('src') === '#') {
+      preview.style.display = 'none';
+      placeholder.style.display = 'block';
+  }
+}
 // Função de inicialização para configurar o estado inicial (imagem atual vs. placeholder)
 // Esta função é executada assim que o DOM estiver carregado.
 document.addEventListener("DOMContentLoaded", () => {

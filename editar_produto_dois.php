@@ -247,36 +247,6 @@ function get_value($field, $produto)
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="./js/pre_visualizacao_imagem.js"></script>
-    <!-- Script para inicializar a pré-visualização da imagem na edição (Se você tiver o arquivo pre_visualizacao_imagem.js, ele precisará dessa função) -->
-    <script>
-      // Função para pré-visualizar a imagem (assumindo que esta função está no seu pre_visualizacao_imagem.js)
-      function previewImagem(event) {
-          const [file] = event.target.files;
-          const preview = document.getElementById('imagemPreview');
-          const placeholder = document.getElementById('textoPlaceholder');
-
-          if (file) {
-              preview.src = URL.createObjectURL(file);
-              preview.style.display = 'block';
-              placeholder.style.display = 'none';
-          } else if (!preview.getAttribute('src') || preview.getAttribute('src') === '#') {
-              preview.style.display = 'none';
-              placeholder.style.display = 'block';
-          }
-      }
-
-      // Adiciona a lógica para exibir a imagem atual se houver uma URL na carga da página
-      window.addEventListener('load', () => {
-          const preview = document.getElementById('imagemPreview');
-          const placeholder = document.getElementById('textoPlaceholder');
-          
-          // Verifica se o atributo src foi preenchido com a URL da foto atual no PHP
-          if (preview.getAttribute('src') && preview.getAttribute('src') !== '#') {
-              preview.style.display = 'block';
-              placeholder.style.display = 'none';
-          }
-      });
-    </script>
 </body>
 
 </html>

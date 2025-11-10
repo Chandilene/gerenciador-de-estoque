@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost:3307";
+$servername = "localhost";
 $database = "estoque_alpha_suplementos";
 $username = "root";
 $password = "";
