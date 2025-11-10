@@ -24,3 +24,27 @@ function previewImagem(event) {
     textoPlaceholder.style.display = "block";
   }
 }
+
+// EDITAAAAAAAAAAAR -------------------------
+
+// Função de inicialização para configurar o estado inicial (imagem atual vs. placeholder)
+// Esta função é executada assim que o DOM estiver carregado.
+document.addEventListener("DOMContentLoaded", () => {
+  var imagemPreview = document.getElementById("imagemPreview");
+  var textoPlaceholder = document.getElementById("textoPlaceholder");
+
+  // Verifica se o PHP preencheu o atributo 'src' com uma URL válida (diferente de '#')
+  if (
+    imagemPreview &&
+    imagemPreview.getAttribute("src") &&
+    imagemPreview.getAttribute("src") !== "#"
+  ) {
+    // Se houver imagem (modo edição), exibe a imagem e oculta o placeholder.
+    imagemPreview.style.display = "block";
+    textoPlaceholder.style.display = "none";
+  } else if (textoPlaceholder) {
+    // Se não houver imagem (modo cadastro ou edição sem foto), garante que o placeholder apareça.
+    imagemPreview.style.display = "none";
+    textoPlaceholder.style.display = "block";
+  }
+});
