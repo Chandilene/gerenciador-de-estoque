@@ -5,9 +5,11 @@
   align-items: center;
   background-image: url(../assets/background/fundo5.jpg);
   background-repeat: no-repeat;
-  background-size:cover;
+  background-size: cover;
 }
-
+input {
+  box-shadow: 0 2px 8px #00000054;
+}
 .login-panel {
   background-color: #ffffff62;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -16,7 +18,7 @@
 }
 
 .logo-side {
-  background-color:  #ffffff62;
+  background-color: #ffffff62;
   color: rgb(0, 0, 0);
   padding: 30px;
   display: flex;
@@ -33,7 +35,7 @@
   border-radius: 5px;
 }
 
-.input-group .btn-outline-secondary{
-  background-color: #009fe9;
-  color: #ffffff;
+.input-group .btn-outline-secondary {
+  background-color: #ffffff;
+  color: #009fe9;
 }
