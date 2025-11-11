@@ -32,3 +32,8 @@
   height: auto;
   border-radius: 5px;
 }
+
+.input-group .btn-outline-secondary{
+  background-color: #009fe9;
+  color: #ffffff;
+}
