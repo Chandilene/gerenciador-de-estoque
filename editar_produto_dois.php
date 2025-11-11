@@ -25,7 +25,7 @@ if ($produto_id) {
     if ($produto) {
         $titulo_pagina = "Editar Produto: " . htmlspecialchars($produto['nome']);
         // CORREÇÃO: Altera a ação do formulário para o novo método 'update_produto'
-        $acao_formulario = "update_produto"; 
+        $acao_formulario = "update_produto";
         $texto_botao = "Salvar Alterações";
         $url_foto_atual = $produto['url_foto'] ?? null;
     } else {
@@ -51,7 +51,7 @@ $lista_fornecedores = mysqli_query($conn, $query_fornecedor);
 function get_value($field, $produto)
 {
     // O htmlspecialchars é importante para evitar XSS
-    return htmlspecialchars($produto[$field] ?? ''); 
+    return htmlspecialchars($produto[$field] ?? '');
 }
 
 ?>
@@ -66,8 +66,10 @@ function get_value($field, $produto)
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/form_style.css">
 </head>
 
 <body>
@@ -77,9 +79,7 @@ function get_value($field, $produto)
             <div class='col-md-12'>
                 <section class='card'>
                     <header class='card-header'>
-                        <h1><?= $titulo_pagina ?>
-                            <a href="index.php" class='btn btn-secondary float-end'>Voltar</a>
-                        </h1>
+                        <h1><?= $titulo_pagina ?></h1>
                     </header>
                     <div class='card-body'>
                         <form action="acoes.php" method='POST' enctype="multipart/form-data">
@@ -98,7 +98,8 @@ function get_value($field, $produto)
 
                                         <div class='mb-3'>
                                             <label>Nome:</label>
-                                            <input type="text" name='nome' class='form-control' required value="<?= get_value('nome', $produto) ?>">
+                                            <input type="text" name='nome' class='form-control' required
+                                                value="<?= get_value('nome', $produto) ?>">
                                         </div>
                                     </div>
 
@@ -106,7 +107,8 @@ function get_value($field, $produto)
 
                                         <div class='mb-3'>
                                             <label>Descrição:</label>
-                                            <textarea name='descricao' class='form-control' rows="3"><?= get_value('descricao', $produto) ?></textarea>
+                                            <textarea name='descricao' class='form-control'
+                                                rows="3"><?= get_value('descricao', $produto) ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +121,8 @@ function get_value($field, $produto)
 
                                         <div class='mb-3'>
                                             <label>Quantidade:</label>
-                                            <input type="number" name='quantidade_estoque' class='form-control' required value="<?= get_value('quantidade_estoque', $produto) ?>">
+                                            <input type="number" name='quantidade_estoque' class='form-control' required
+                                                value="<?= get_value('quantidade_estoque', $produto) ?>">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -127,7 +130,8 @@ function get_value($field, $produto)
                                         <div class='mb-3'>
                                             <label>Valor:</label>
                                             <!-- Adiciona o valor do produto em edição ao campo de preço -->
-                                            <input type="number" step="any" name='preco_unitario' class='form-control' required value="<?= get_value('preco_unitario', $produto) ?>">
+                                            <input type="number" step="any" name='preco_unitario' class='form-control'
+                                                required value="<?= get_value('preco_unitario', $produto) ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -139,13 +143,10 @@ function get_value($field, $produto)
                                     <div class="col-md-6">
                                         <div class='mb-3'>
                                             <label for="inputFoto" class='form-label'>Foto do Produto:</label>
-                                            <input type="file"
-                                                name='foto'
-                                                class='form-control'
-                                                id="inputFoto"
-                                                accept="image/*"
-                                                onchange="previewImagem(event)">
-                                            <small class="form-text text-muted">Selecione uma nova imagem apenas se quiser substituir a atual.</small>
+                                            <input type="file" name='foto' class='form-control' id="inputFoto"
+                                                accept="image/*" onchange="previewImagem(event)">
+                                            <small class="form-text text-muted">Selecione uma nova imagem apenas se
+                                                quiser substituir a atual.</small>
                                         </div>
                                     </div>
 
@@ -153,13 +154,15 @@ function get_value($field, $produto)
                                     <div class="col-md-6">
                                         <div class='mb-3'>
                                             <label class='form-label'>Pré-visualização:</label>
-                                            <figure class="image-preview-container border p-2 text-center border p-4 text-center d-flex flex-column justify-content-center align-items-center">
+                                            <figure
+                                                class="image-preview-container border p-2 text-center border p-4 text-center d-flex flex-column justify-content-center align-items-center">
                                                 <!-- Adiciona a URL da foto atual se estiver em modo de edição -->
                                                 <img id="imagemPreview"
-                                                  src="<?= $url_foto_atual ? $url_foto_atual : '#' ?>"
-                                                  alt="Pré-visualização da Imagem"
-                                                  style="max-width: 100%; max-height: 200px; object-fit: contain; <?= $url_foto_atual ? 'display: block;' : 'display: none;' ?>">
-                                                <figcaption id="textoPlaceholder" style="<?= $url_foto_atual ? 'display: none;' : 'display: block;' ?>">
+                                                    src="<?= $url_foto_atual ? $url_foto_atual : '#' ?>"
+                                                    alt="Pré-visualização da Imagem"
+                                                    style="max-width: 100%; max-height: 200px; object-fit: contain; <?= $url_foto_atual ? 'display: block;' : 'display: none;' ?>">
+                                                <figcaption id="textoPlaceholder"
+                                                    style="<?= $url_foto_atual ? 'display: none;' : 'display: block;' ?>">
                                                     <?= $url_foto_atual ? 'Foto atual carregada' : 'Nenhuma imagem selecionada.' ?>
                                                 </figcaption>
                                             </figure>
@@ -182,21 +185,21 @@ function get_value($field, $produto)
                                                 // re-definida de forma incorreta no seu código original.
                                                 // Para fins didáticos e compatibilidade com seu código, vou assumir que mysqli_query retornou um objeto iterável
                                                 // e que precisamos reiniciá-lo ou re-consultar (a re-consulta é a forma como estava antes).
-
+                                                
                                                 $query_categoria_select = "SELECT * FROM categoria";
                                                 $lista_categorias_select = mysqli_query($conn, $query_categoria_select);
-                                                
+
                                                 if (mysqli_num_rows($lista_categorias_select) > 0) {
-                                                  // Itera sobre as categorias
-                                                  while ($categoria = mysqli_fetch_assoc($lista_categorias_select)) {
+                                                    // Itera sobre as categorias
+                                                    while ($categoria = mysqli_fetch_assoc($lista_categorias_select)) {
                                                         // LÓGICA DE PRÉ-SELEÇÃO: Verifica se o ID da categoria do produto ($produto)
                                                         // é igual ao ID da categoria atual ($categoria)
                                                         $selected = ($produto && $produto['id_categoria'] == $categoria['id_categoria']) ? 'selected' : '';
-                                                ?>
+                                                        ?>
                                                         <option value="<?= $categoria['id_categoria'] ?>" <?= $selected ?>>
                                                             <?= $categoria['nome_categoria'] ?>
                                                         </option>
-                                                <?php
+                                                        <?php
                                                     }
                                                 }
                                                 ?>
@@ -220,11 +223,11 @@ function get_value($field, $produto)
                                                         // LÓGICA DE PRÉ-SELEÇÃO: Verifica se o ID do fornecedor do produto ($produto)
                                                         // é igual ao ID do fornecedor atual ($fornecedor)
                                                         $selected = ($produto && $produto['id_fornecedor'] == $fornecedor['id_fornecedor']) ? 'selected' : '';
-                                                ?>
+                                                        ?>
                                                         <option value="<?= $fornecedor['id_fornecedor'] ?>" <?= $selected ?>>
                                                             <?= $fornecedor['nome_fornecedor'] ?>
                                                         </option>
-                                                <?php
+                                                        <?php
                                                     }
                                                 }
                                                 ?>
@@ -237,7 +240,13 @@ function get_value($field, $produto)
                             <input type="hidden" name="ativo" value="1">
                             <!-- O nome do botão pode ser usado como fallback se a ação não for enviada corretamente,
                                  mas a variável $acao_formulario no input hidden já define o comportamento correto. -->
-                            <button type='submit' class='btn btn-primary'><?= $texto_botao ?></button>
+
+                            <div class="buttons">
+                                <button type='submit' class='btn btn-primary'><?= $texto_botao ?></button>
+                                <a href="index.php" class='btn btn-secondary '>Voltar</a>
+
+
+                            </div>
                     </div>
                     </form>
                 </section>
@@ -245,7 +254,9 @@ function get_value($field, $produto)
         </div>
     </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
     <script src="./js/pre_visualizacao_imagem.js"></script>
 </body>
 

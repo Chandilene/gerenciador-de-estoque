@@ -81,78 +81,85 @@ $fornecedor_nome = $produto['nome_fornecedor'] ?? 'N/A';
 
 <body>
     <?php include('navbar.php'); ?>
-    <main class="container my-5">
+    <main class="container my-5 card">
         <header>
             <h1 class="mb-4 border-bottom pb-2">Detalhes do Produto
-                <a href="index.php" class='btn btn-secondary float-end'">Voltar</a>
+                <a href="index.php" class='btn btn-secondary float-end'>Voltar</a>
             </h1>
         </header>
 
+        <div class="row">
+            <section class="col-md-3 mb-4 w-200">
+                <figure class="card w-60 shadow-sm card-imagem">
+                    <img src="./<?= htmlspecialchars($produto['url_foto']) ?>" class="card-img-top img-thumbnail"
+                        alt="Foto do Produto" />
+                </figure>
+            </section>
 
-        <div class=" row">
-                    <section class="col-lg-4 mb-4">
-                        <figure class="card shadow-sm">
-                            <img src="./<?= htmlspecialchars($produto['url_foto']) ?>" class="card-img-top"
-                                alt="Foto do Produto" />
-                        </figure>
-                    </section>
+            <section class="col-lg-8">
+                <h2 class="display-6 mb-3"><?= htmlspecialchars($produto['nome']) ?></h2>
 
-                    <section class="col-lg-8">
-                        <h2 class="display-5 mb-3"><?= htmlspecialchars($produto['nome']) ?></h2>
+                <section>
 
-                        <section>
+                    <h5>Descrição completa:</h5>
+                    <p class="lead text-muted mb-4">
+                        <?= nl2br(htmlspecialchars($produto['descricao'])) ?>
+                    </p>
+                </section>
+                <section class="mb-4">
+                    <dl class="row">
+                        <dt class="col-sm-3 info-label">ID Produto:</dt>
+                        <dd class="col-sm-9 info-value"><?= $produto['id_produto'] ?></dd>
 
-                            <h4>Descrição completa:</h4>
-                            <p class="lead text-muted mb-4">
-                                <?= nl2br(htmlspecialchars($produto['descricao'])) ?>
-                            </p>
-                        </section>
-                        <section class="mb-4">
-                            <dl class="row">
-                                <dt class="col-sm-3 info-label">ID Produto:</dt>
-                                <dd class="col-sm-9 info-value"><?= $produto['id_produto'] ?></dd>
+                        <dt class="col-sm-3 info-label">Categoria:</dt>
+                        <dd class="col-sm-9 info-value"><?= htmlspecialchars($produto['nome_categoria']) ?></dd>
 
-                                <dt class="col-sm-3 info-label">Categoria:</dt>
-                                <dd class="col-sm-9 info-value"><?= htmlspecialchars($produto['nome_categoria']) ?></dd>
+                        <dt class="col-sm-3 info-label">Fornecedor:</dt>
+                        <dd class="col-sm-9 info-value"><?= htmlspecialchars($produto['nome_fornecedor']) ?>
+                        </dd>
 
-                                <dt class="col-sm-3 info-label">Fornecedor:</dt>
-                                <dd class="col-sm-9 info-value"><?= htmlspecialchars($produto['nome_fornecedor']) ?>
-                                </dd>
-
-                                <dt class="col-sm-3 info-label">Status:</dt>
-                                <dd class="col-sm-9 info-value">
-                                    <span class="badge <?= $status_classe ?>"><?= $status_texto ?></span>
-                                </dd>
-                            </dl>
-                        </section>
-
-
-                        <hr class="my-4" />
-                        <section class="card card-estoque shadow-lg p-3">
-
-                            <div class="card-body">
-                                <h3 class="card-title text-info mb-3">Informações de Estoque</h3>
+                        <dt class="col-sm-3 info-label">Status:</dt>
+                        <dd class="col-sm-9 info-value">
+                            <span class="badge <?= $status_classe ?>"><?= $status_texto ?></span>
+                        </dd>
+                    </dl>
+                </section>
 
 
-                                <div class="col-md-6 mb-3 mb-md-0 border-end">
+                <hr class="my-4" />
+                <section class="card card-estoque shadow-lg p-3">
+
+                    <div class="card-body">
+                        <h3 class="card-title mb-3">Informações de Estoque</h3>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3 mb-md-0 border-end">
+                                <div class="mb-3">
+
                                     <p class="mb-1 info-label">Preço Unitário:</p>
                                     <p class="h4 text-dark"><?= $preco_formatado ?></p>
-
+    
                                     <p class="mb-1 mt-3 info-label">Quantidade em Estoque:</p>
                                     <p class="h3 text-primary"><?= $quantidade ?> unidades</p>
                                 </div>
+                            </div>
 
-                                <div class="col-md-6 text-center">
+                            <div class="col-md-6 text-center">
+                                <div class="mb-3">
+
                                     <p class="mb-0 info-label">
                                         Valor Total do Estoque:
                                     </p>
                                     <div class="valor-total-estoque"><?= $total_estoque_formatado ?></div>
                                 </div>
                             </div>
-                        </section>
+                        </div>
 
-                    </section>
                     </div>
+                </section>
+
+            </section>
+        </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

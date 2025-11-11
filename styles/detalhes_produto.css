@@ -1,6 +1,23 @@
+body {
+  background-color: #eef4f5;
+}
+
+main {
+  box-shadow: 0 10px 30px #005085;
+  padding: 12px;
+}
+
+header{
+  color:#7ccaee;
+}
+
+.card-imagem{
+  border: 1px solid rgb(126, 189, 218);
+  box-shadow: 0 5px 10px #0d6efd !important;
+}
 .card-estoque {
-  background-color: #e0f7fa;
-  border-left: 5px solid #00bcd4;
+  background-color: #eef4f5;
+  border-left: 5px solid #009fe9;
 }
 
 .valor-total-estoque {
@@ -9,6 +26,9 @@
   color: #28a745;
 }
 
+.card-body h3{
+  color: #009fe9;
+}
 .info-label {
   font-weight: 600;
   color: #6c757d;
