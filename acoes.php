@@ -1,16 +1,16 @@
 <?php
 require 'config_sessao.php';
-
 require 'connection.php';
+require 'Autenticar.php';
 
 function criar_mensagem_de_erro($mensagem, $pagina_redirecionamento)
 {
-
     $_SESSION['mensagem'] = $mensagem;
     header("Location: $pagina_redirecionamento");
     exit;
 }
 
+// MÉTODO: REALIZAR LOGIN
 if (isset($_POST['login'])) {
     $senha_digitada = trim($_POST['senha'] ?? '');
     $usuario_digitado = trim($_POST['usuario'] ?? '');
@@ -18,31 +18,78 @@ if (isset($_POST['login'])) {
     if (empty($usuario_digitado) || empty($senha_digitada)) {
         criar_mensagem_de_erro('Por favor, preencha todos os campos.', 'login.php');
     }
+    // 1. Instancia a classe Autenticar
+    $autenticar = new Autenticar($conn);
 
+    // 2. Chama o método login() da classe
+    $usuario_logado = $autenticar->login($usuario_digitado, $senha_digitada);
 
-    $usuario_digitado = mysqli_real_escape_string($conn, $usuario_digitado);
-    $query_usuario = "SELECT * FROM usuario WHERE usuario = '$usuario_digitado'";
-    $resultado_query = mysqli_query($conn, $query_usuario);
-    $usuario = mysqli_fetch_assoc($resultado_query);
+    if ($usuario_logado) {
+        // Login bem-sucedido! Usa os getters da classe Usuario para configurar a sessão
+        $_SESSION['logado'] = true;
+        $_SESSION['id_usuario'] = $usuario_logado->getId();
+        $_SESSION['usuario'] = $usuario_logado->getUsuario();
 
-    if (!$usuario) {
+        header('Location: index.php');
+        exit;
+    } else {
+        // Login falhou
         criar_mensagem_de_erro('Usuário ou senha inválidos.', 'login.php');
     }
-
-    $hash_do_banco = $usuario['senha'];
-
-    if (!password_verify($senha_digitada, $hash_do_banco)) {
-        criar_mensagem_de_erro('Usuário ou senha inválidos.', 'login.php');
-    }
-
-    $_SESSION['logado'] = true;
-    $_SESSION['id_usuario'] = $usuario['id_usuario'];
-    $_SESSION['usuario'] = $usuario['usuario'];
-
-    header(('Location: index.php'));
-    exit;
 }
 
+//METODO: ALTERAR USUARIO E SENHA (UPDATE)
+
+if (isset($_POST['update_credenciais'])) {
+    require 'verificacao_seguranca_login.php';
+
+    $id_usuario = $_SESSION['id_usuario'];
+    $novo_usuario = trim($_POST['novo_usuario'] ?? '');
+    $senha_atual = trim($_POST['senha_atual'] ?? '');
+    $nova_senha = trim($_POST['nova_senha'] ?? '');
+    $confirma_senha = trim($_POST['confirma_senha'] ?? '');
+    $pagina_origem = 'configuracoes_usuario.php';
+
+    // 1. Validação
+    if (empty($novo_usuario) || empty($senha_atual)) {
+        criar_mensagem_de_erro('Preencha o nome de usuário e a senha atual.', $pagina_origem);
+    }
+
+    // 2. Validação da Nova Senha (se preenchida)
+    if (!empty($nova_senha) || !empty($confirma_senha)) {
+        if ($nova_senha !== $confirma_senha) {
+            criar_mensagem_de_erro('A nova senha e a confirmação não coincidem.', $pagina_origem);
+        }
+        if (strlen($nova_senha) < 6) { // Regra de segurança mínima
+            criar_mensagem_de_erro('A nova senha deve ter pelo menos 6 caracteres.', $pagina_origem);
+        }
+    } else {
+        // Se a senha não foi preenchida, verificamos se o usuário mudou o nome de usuário
+        if ($_SESSION['usuario'] === $novo_usuario) {
+            criar_mensagem_de_erro('Nenhuma alteração detectada.', $pagina_origem);
+        }
+    }
+
+    // Se a nova senha estiver vazia, passamos a senha atual para o método para não gerar um novo hash
+    $senha_para_atualizar = !empty($nova_senha) ? $nova_senha : '';
+
+    // 3. Chamada da Lógica POO
+    $autenticar = new Autenticar($conn);
+    $sucesso = $autenticar->atualizarCredenciais($id_usuario, $novo_usuario, $senha_atual, $senha_para_atualizar);
+
+    // 4. Feedback e Redirecionamento
+    if ($sucesso) {
+        // Atualiza o nome de usuário na sessão caso tenha sido alterado
+        $_SESSION['usuario'] = $novo_usuario;
+        $_SESSION['mensagem'] = "Credenciais atualizadas com sucesso!";
+        header("Location: index.php");
+        exit;
+    } else {
+        criar_mensagem_de_erro('Senha atual incorreta ou erro ao atualizar.', $pagina_origem);
+    }
+}
+
+// MÉTODO: CADASTRAR PRODUTO (CREATE)
 if (isset($_POST['create_produto'])) {
     $nome = mysqli_real_escape_string($conn, trim($_POST['nome']));
     $descricao = mysqli_real_escape_string($conn, trim($_POST['descricao']));
@@ -92,8 +139,6 @@ if (isset($_POST['create_produto'])) {
         $ativo = 1;
     }
 
-
-
     $query = "INSERT INTO produto (nome, descricao, quantidade_estoque, preco_unitario, url_foto, ativo, id_categoria, id_fornecedor) 
               VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -119,6 +164,7 @@ if (isset($_POST['create_produto'])) {
     exit;
 }
 
+// MÉTODO: DELETAR PRODUTO (DELETE)
 if (isset($_POST['delete_produto'])) {
     require 'verificacao_seguranca_login.php';
     $produto_id = mysqli_real_escape_string($conn, $_POST['delete_produto']);
@@ -135,8 +181,8 @@ if (isset($_POST['delete_produto'])) {
     }
 }
 
-// NOVO MÉTODO: ATUALIZAR PRODUTO (UPDATE)
-// =================================================================
+// MÉTODO: ATUALIZAR PRODUTO (UPDATE)
+
 if (isset($_POST['acao']) && $_POST['acao'] == 'update_produto') {
     require 'verificacao_seguranca_login.php';
 
@@ -149,7 +195,7 @@ if (isset($_POST['acao']) && $_POST['acao'] == 'update_produto') {
     $id_categoria = mysqli_real_escape_string($conn, trim($_POST['id_categoria']));
     $id_fornecedor = mysqli_real_escape_string($conn, trim($_POST['id_fornecedor']));
     // Este campo hidden vem do formulário e guarda a URL da foto se o usuário não enviar uma nova
-    $url_foto_atual = mysqli_real_escape_string($conn, trim($_POST['url_foto_atual'] ?? '')); 
+    $url_foto_atual = mysqli_real_escape_string($conn, trim($_POST['url_foto_atual'] ?? ''));
 
     if (empty($id_produto)) {
         criar_mensagem_de_erro('ID do produto inválido para atualização.', 'index.php');
@@ -211,18 +257,20 @@ if (isset($_POST['acao']) && $_POST['acao'] == 'update_produto') {
     }
 
     // Tipo de parâmetros: s (string), s (string), i (int), d (double), s (string), i (int), i (int), i (int), i (int)
-    mysqli_stmt_bind_param($stmt, "ssidsiiii", 
-        $nome, 
-        $descricao, 
-        $quantidade_estoque, 
-        $preco_unitario, 
-        $url_foto, 
-        $ativo, 
-        $id_categoria, 
+    mysqli_stmt_bind_param(
+        $stmt,
+        "ssidsiiii",
+        $nome,
+        $descricao,
+        $quantidade_estoque,
+        $preco_unitario,
+        $url_foto,
+        $ativo,
+        $id_categoria,
         $id_fornecedor,
         $id_produto
     );
-    
+
     $query_run = mysqli_stmt_execute($stmt);
 
     // 5. Verificação e Redirecionamento

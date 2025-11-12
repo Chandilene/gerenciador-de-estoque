@@ -47,8 +47,8 @@ require 'config_sessao.php';
                         <div class="input-group">
                             <input type="password" class="form-control" id="senha" name="senha" required>
 
-                            <button class="btn btn-outline-secondary" type="button" id="toggleSenha">
-                                <i class="bi bi-eye-slash" id="iconeOlho"></i>
+                            <button class="btn btn-outline-secondary toggle-password" type="button" data-target="senha">
+                                <i class="bi bi-eye-slash"></i>
                             </button>
                         </div>
                     </div>
@@ -66,7 +66,7 @@ require 'config_sessao.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-    <script src="./js/visibilidade_senha.js"></script>
+    <script src="js/visibilidade_senha.js"></script>
 </body>
 
 </html>

@@ -1,23 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const toggleSenha = document.getElementById("toggleSenha");
-  const senhaInput = document.getElementById("senha"); // Usando o ID 'inputSenha'
-  const iconeOlho = document.getElementById("iconeOlho");
+  // Agora selecionamos todos os botões que têm a classe 'toggle-password'
+  const toggleButtons = document.querySelectorAll(".toggle-password");
 
-  toggleSenha.addEventListener("click", function () {
-    // 1. Determina o novo tipo
-    const type =
-      senhaInput.getAttribute("type") === "password" ? "text" : "password";
+  toggleButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      // Usamos o atributo 'data-target' para descobrir qual input controlar
+      const targetId = this.getAttribute("data-target");
+      const senhaInput = document.getElementById(targetId);
+      const iconeOlho = this.querySelector("i"); // Seleciona o ícone DENTRO deste botão
 
-    // 2. Alterna o tipo do input
-    senhaInput.setAttribute("type", type);
+      // 1. Determina o novo tipo
+      const type =
+        senhaInput.getAttribute("type") === "password" ? "text" : "password";
 
-    // 3. Alterna o ícone
-    if (type === "text") {
-      iconeOlho.classList.remove("bi-eye-slash");
-      iconeOlho.classList.add("bi-eye");
-    } else {
-      iconeOlho.classList.remove("bi-eye");
-      iconeOlho.classList.add("bi-eye-slash");
-    }
+      // 2. Alterna o tipo do input
+      senhaInput.setAttribute("type", type);
+
+      // 3. Alterna o ícone (o código de alternância de classe é mais limpo)
+      iconeOlho.classList.toggle("bi-eye-slash");
+      iconeOlho.classList.toggle("bi-eye");
+    });
   });
 });

@@ -64,12 +64,13 @@ function get_value($field, $produto)
     <title><?= $titulo_pagina ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         xintegrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/form_style.css">
+    <link rel="stylesheet" href="./styles/styles.css">
 </head>
 
 <body>
@@ -185,7 +186,7 @@ function get_value($field, $produto)
                                                 // re-definida de forma incorreta no seu código original.
                                                 // Para fins didáticos e compatibilidade com seu código, vou assumir que mysqli_query retornou um objeto iterável
                                                 // e que precisamos reiniciá-lo ou re-consultar (a re-consulta é a forma como estava antes).
-                                                
+
                                                 $query_categoria_select = "SELECT * FROM categoria";
                                                 $lista_categorias_select = mysqli_query($conn, $query_categoria_select);
 
@@ -195,11 +196,11 @@ function get_value($field, $produto)
                                                         // LÓGICA DE PRÉ-SELEÇÃO: Verifica se o ID da categoria do produto ($produto)
                                                         // é igual ao ID da categoria atual ($categoria)
                                                         $selected = ($produto && $produto['id_categoria'] == $categoria['id_categoria']) ? 'selected' : '';
-                                                        ?>
+                                                ?>
                                                         <option value="<?= $categoria['id_categoria'] ?>" <?= $selected ?>>
                                                             <?= $categoria['nome_categoria'] ?>
                                                         </option>
-                                                        <?php
+                                                <?php
                                                     }
                                                 }
                                                 ?>
@@ -223,11 +224,11 @@ function get_value($field, $produto)
                                                         // LÓGICA DE PRÉ-SELEÇÃO: Verifica se o ID do fornecedor do produto ($produto)
                                                         // é igual ao ID do fornecedor atual ($fornecedor)
                                                         $selected = ($produto && $produto['id_fornecedor'] == $fornecedor['id_fornecedor']) ? 'selected' : '';
-                                                        ?>
+                                                ?>
                                                         <option value="<?= $fornecedor['id_fornecedor'] ?>" <?= $selected ?>>
                                                             <?= $fornecedor['nome_fornecedor'] ?>
                                                         </option>
-                                                        <?php
+                                                <?php
                                                     }
                                                 }
                                                 ?>
