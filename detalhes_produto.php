@@ -3,18 +3,15 @@ require 'config_sessao.php';
 require 'verificacao_seguranca_login.php';
 require 'connection.php';
 
-// 1. Obter o ID do produto da URL (via GET)
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    // Redireciona se o ID estiver faltando ou for inválido
+    
     $_SESSION['mensagem'] = 'ID do produto inválido ou não fornecido.';
     header("Location: index.php");
     exit;
 }
 
-// Escapa a string para segurança (contra SQL Injection)
 $produto_id = mysqli_real_escape_string($conn, $_GET['id']);
 
-// 2. Query SQL (usando LEFT JOIN para garantir que o produto seja listado)
 $query = "
     SELECT 
         p.*, 
@@ -33,37 +30,29 @@ $query = "
 
 $resultado = mysqli_query($conn, $query);
 
-// VERIFICAÇÃO DE ERRO NO BANCO (MANTENHA PARA DEBUG, REMOVA DEPOIS)
 if (!$resultado) {
     die("Erro na Query: " . mysqli_error($conn));
 }
 
-// 3. Verifica se o produto foi encontrado
 if (mysqli_num_rows($resultado) == 0) {
-    // Produto não existe, redireciona
     $_SESSION['mensagem'] = 'Produto não encontrado.';
     header("Location: index.php");
     exit;
 }
 
-// Armazena os dados do produto
 $produto = mysqli_fetch_assoc($resultado);
 
-// 4. Cálculos e Formatação
 $preco_unitario = (float) $produto['preco_unitario'];
 $quantidade = (int) $produto['quantidade_estoque'];
 $valor_total_estoque = $preco_unitario * $quantidade;
 
-// Formatação para R$ (Ajuste a vírgula e o ponto conforme seu idioma)
 $preco_formatado = 'R$ ' . number_format($preco_unitario, 2, ',', '.');
 $total_estoque_formatado = 'R$ ' . number_format($valor_total_estoque, 2, ',', '.');
 
-// Define classes e texto de status
 $status_ativo = ($produto['ativo'] == 1);
 $status_texto = $status_ativo ? 'Disponível' : 'Indisponível';
 $status_classe = $status_ativo ? 'bg-success' : 'bg-danger';
 
-// Pega o nome do Fornecedor e Categoria (Se o LEFT JOIN não achou, será NULL, então usamos um fallback)
 $categoria_nome = $produto['nome_categoria'] ?? 'N/A';
 $fornecedor_nome = $produto['nome_fornecedor'] ?? 'N/A';
 ?>

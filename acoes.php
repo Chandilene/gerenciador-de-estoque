@@ -70,7 +70,7 @@ if (isset($_POST['update_credenciais'])) {
         }
     }
 
-    // Se a nova senha estiver vazia, passamos a senha atual para o método para não gerar um novo hash
+    // Se a nova senha estiver vazia, passa a senha atual para o método para não gerar um novo hash
     $senha_para_atualizar = !empty($nova_senha) ? $nova_senha : '';
 
     // 3. Chamada da Lógica POO

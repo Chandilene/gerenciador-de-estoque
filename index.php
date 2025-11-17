@@ -74,7 +74,7 @@ require "connection.php"
                                             </td>
                                             <td>
                                                 <a href="detalhes_produto.php?id=<?= $produto['id_produto'] ?>" class='btn btn-secondary btn-sm'> <span class="bi bi-eye"></span>&nbsp; Visualizar</a>
-                                                <a href="editar_produto_dois.php?id=<?= $produto['id_produto'] ?>" class='btn btn-success btn-sm'> <span class="bi bi-pencil"></span>&nbsp; Editar</a>
+                                                <a href="editar_produto.php?id=<?= $produto['id_produto'] ?>" class='btn btn-success btn-sm'> <span class="bi bi-pencil"></span>&nbsp; Editar</a>
 
 
                                                 <button

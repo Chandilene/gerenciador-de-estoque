@@ -11,15 +11,20 @@
                 <strong>ALPHA</strong> Suplementos </a>
 
             <?php if (isset($_SESSION['logado']) && $_SESSION['logado'] === true): ?>
-                <a href="configuracoes_usuario.php" class="btn btn-secondary me-2" title="Configurações">
-                    <i class="bi bi-gear-fill"></i> </a>
+                <div class="buttons">
 
-                <a href="logout.php"
-                    class="btn btn-danger btn-sm"
-                    title="Sair do Sistema">
-                    <span class="bi bi-box-arrow-left "></span>&nbsp;
-                    Sair
-                </a>
+                    <a href="configuracoes_usuario.php" class="btn btn-secondary btn-sm me-2" title="Configurações de usuario">
+                    <span class="bi bi-person-circle "></span>&nbsp;
+                    Conta
+                       </a>
+    
+                    <a href="logout.php"
+                        class="btn btn-danger btn-sm"
+                        title="Sair do Sistema">
+                        <span class="bi bi-box-arrow-left "></span>&nbsp;
+                        Sair
+                    </a>
+                </div>
 
             <?php endif; ?>
 

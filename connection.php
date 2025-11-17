@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost:3307";
+$servername = "localhost";
 $database = "estoque_alpha_suplementos";
 $username = "root";
 $password = "";
@@ -11,4 +11,4 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-//echo "Conexão realizada com sucesso!!";
+
