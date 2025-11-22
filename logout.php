@@ -19,7 +19,7 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-$_SESSION['mensagem'] = 'Você saiu do sistema com sucesso.';
 
 header("Location: login.php");
+
 exit;

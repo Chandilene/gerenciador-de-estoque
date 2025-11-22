@@ -76,6 +76,37 @@ require "connection.php"
               </fieldset>
 
               <fieldset class="mt-4">
+                <legend class="h5 mb-3 border-bottom pb-2">Mídia do Produto</legend>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class='mb-3'>
+                      <label for="inputFoto" class='form-label'>Foto do Produto:</label>
+                      <input type="file"
+                        name='foto'
+                        class='form-control'
+                        id="inputFoto"
+                        accept="image/*"
+                        onchange="previewImagem(event)">
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <div class='mb-3'>
+                      <label class='form-label'>Pré-visualização:</label>
+                      <figure class="image-preview-container border p-2 text-center border p-4 text-center d-flex flex-column justify-content-center align-items-center">
+                        <img id="imagemPreview"
+                          src="#"
+                          alt="Pré-visualização da Imagem"
+                          style="display: none; max-width: 100%; max-height: 200px; object-fit: contain;">
+                        <figcaption id="textoPlaceholder">Nenhuma imagem selecionada.</figcaption>
+                      </figure>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="mt-4">
                 <legend class="h5 mb-3 border-bottom pb-2">Associações</legend>
                 <div class="row">
                   <div class="col-md-6">
@@ -122,42 +153,9 @@ require "connection.php"
                 </div>
               </fieldset>
 
-              <fieldset class="mt-4">
-                <legend class="h5 mb-3 border-bottom pb-2">Mídia do Produto</legend>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class='mb-3'>
-                      <label for="inputFoto" class='form-label'>Foto do Produto:</label>
-                      <input type="file"
-                        name='foto'
-                        class='form-control'
-                        id="inputFoto"
-                        accept="image/*"
-                        onchange="previewImagem(event)">
-                    </div>
-                  </div>
-
-
-                  <div class="col-md-6">
-                    <div class='mb-3'>
-                      <label class='form-label'>Pré-visualização:</label>
-                      <figure class="image-preview-container border p-2 text-center border p-4 text-center d-flex flex-column justify-content-center align-items-center">
-                        <img id="imagemPreview"
-                          src="#"
-                          alt="Pré-visualização da Imagem"
-                          style="display: none; max-width: 100%; max-height: 200px; object-fit: contain;">
-                        <figcaption id="textoPlaceholder">Nenhuma imagem selecionada.</figcaption>
-                      </figure>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-
-
-
               <input type="hidden" name="ativo" value="1">
               <div class="buttons">
-                <a href="index.php" class='btn btn-secondary '>Voltar</a>
+                <a href="index.php" class='btn btn-secondary btn-back '>Voltar</a>
                 <button type='submit' name='create_produto' class='btn btn-primary '>Salvar</button>
 
               </div>

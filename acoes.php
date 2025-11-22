@@ -29,6 +29,7 @@ if (isset($_POST['login'])) {
         $_SESSION['logado'] = true;
         $_SESSION['id_usuario'] = $usuario_logado->getId();
         $_SESSION['usuario'] = $usuario_logado->getUsuario();
+        $_SESSION['mensagem'] = 'Usuário logado com sucesso.';
 
         header('Location: index.php');
         exit;
@@ -222,7 +223,6 @@ if (isset($_POST['acao']) && $_POST['acao'] == 'update_produto') {
 
         if (move_uploaded_file($fileTmpName, $fileDestination)) {
             $url_foto = $fileDestination;
-            // Opcional: Aqui você poderia adicionar a lógica para deletar a foto antiga
         } else {
             criar_mensagem_de_erro('Erro ao fazer upload da nova imagem.', 'editar_produto.php?id=' . $id_produto);
         }

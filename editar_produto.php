@@ -70,12 +70,12 @@ function get_value($field, $produto)
                     </header>
                     <div class='card-body'>
                         <form action="acoes.php" method='POST' enctype="multipart/form-data">
-                           
+
                             <input type="hidden" name="acao" value="<?= $acao_formulario ?>">
                             <?php if ($produto): ?>
-                             
+
                                 <input type="hidden" name="id_produto" value="<?= get_value('id_produto', $produto) ?>">
-                                
+
                                 <input type="hidden" name="url_foto_atual" value="<?= $url_foto_atual ?>">
                             <?php endif; ?>
                             <fieldset>
@@ -173,7 +173,7 @@ function get_value($field, $produto)
                                                 if (mysqli_num_rows($lista_categorias_select) > 0) {
                                                     // Itera sobre as categorias
                                                     while ($categoria = mysqli_fetch_assoc($lista_categorias_select)) {
-                                                       
+
                                                         $selected = ($produto && $produto['id_categoria'] == $categoria['id_categoria']) ? 'selected' : '';
                                                 ?>
                                                         <option value="<?= $categoria['id_categoria'] ?>" <?= $selected ?>>
@@ -218,7 +218,7 @@ function get_value($field, $produto)
 
                             <div class="buttons">
                                 <button type='submit' class='btn btn-primary'><?= $texto_botao ?></button>
-                                <a href="index.php" class='btn btn-secondary '>Voltar</a>
+                                <a href="index.php" class='btn btn-secondary btn-back '>Voltar</a>
 
 
                             </div>
